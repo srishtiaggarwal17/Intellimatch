@@ -293,9 +293,6 @@ CLOUDINARY_API_SECRET=your_api_secret
 # NLP API
 NLP_API_URL=http://127.0.0.1:5001/api/analyze
 
-# Frontend
-CLIENT_URL=http://localhost:3000
-
 ```
 
 ### NLP Service Configuration
