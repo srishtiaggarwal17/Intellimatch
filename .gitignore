@@ -1,0 +1,35 @@
+# =====================
+# ENV FILES (IMPORTANT)
+# =====================
+.env
+backend/.env
+nlp/.env
+
+# =====================
+# NODE MODULES
+# =====================
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# =====================
+# BUILDS
+# =====================
+frontend/build/
+dist/
+build/
+
+# =====================
+# LOGS
+# =====================
+npm-debug.log*
+yarn-error.log*
+
+# =====================
+# PYTHON (for NLP)
+# =====================
+__pycache__/
+*.pyc
+venv/
+.env/
+
