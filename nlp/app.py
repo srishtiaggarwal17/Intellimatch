@@ -201,6 +201,15 @@ def detect_extension(response):
 
     return ".pdf"  # default fallback
 
+@app.route("/api/health", methods=["GET"])
+def health_check():
+    """Health check endpoint to verify API setup."""
+    gemini_key = os.getenv("GEMINI_API_KEY")
+    return jsonify({
+        "status": "healthy",
+        "gemini_configured": bool(gemini_key and gemini_key != "your_gemini_api_key_here"),
+        "temp_dir_exists": os.path.exists(TEMP_DIR)
+    })
 
 @app.route("/api/analyze", methods=["POST"])
 def analyze_documents():
