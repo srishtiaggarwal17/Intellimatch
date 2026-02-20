@@ -280,7 +280,7 @@ Create a `.env` file in `intellimatch-backend/`:
 PORT=4000
 
 # MongoDB
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/intellimatch
+MONGO_URI=your_mongodb_connection_string
 
 # Auth
 SECRET_KEY=your_secret_key
