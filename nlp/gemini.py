@@ -108,6 +108,9 @@
 #         print(f"Error in Gemini match analysis: {e}")
 #         return None
 
+
+
+
 import os
 import json
 import google.generativeai as genai
@@ -148,24 +151,41 @@ def safe_json_load(text):
 def extract_resume_data_with_llm(text):
     print("Extracting resume data with Gemini...")
 
+#     prompt = f"""
+# Return ONLY valid JSON.
+
+# NO text outside JSON.
+
+# Structure:
+
+# {{
+#   "skills": [],
+#   "experience": [],
+#   "education": [],
+#   "projects": [],
+#   "keywords": []
+# }}
+
+# Resume:
+# {text}
+# """
     prompt = f"""
-Return ONLY valid JSON.
-
-NO text outside JSON.
-
-Structure:
-
-{{
-  "skills": [],
-  "experience": [],
-  "education": [],
-  "projects": [],
-  "keywords": []
-}}
-
-Resume:
-{text}
-"""
+    You are an expert HR data extraction system. Analyze the following resume text and convert it into a structured JSON object.
+    Follow this exact JSON structure:
+    {{
+      "contact_information": {{"name": "...", "email": "...", "phone": "...", "linkedin_url": "...", "github_url": "..."}},
+      "summary": "...",
+      "work_experience": [{{"job_title": "...", "company": "...", "start_date": "...", "end_date": "...", "responsibilities": ["..."]}}],
+      "education": [{{"degree": "...", "institution": "...", "graduation_date": "..."}}],
+      "skills": {{"technical": ["..."], "soft": ["..."]}},
+      "projects": [{{"name": "...", "description": "...", "technologies": ["..."]}}]
+    }}
+    If a field is not present, omit it or set its value to null. Your entire output must be ONLY the JSON object, no additional text.
+    Resume Text:
+    ---
+    {text}
+    ---
+    """
 
     response = MODEL.generate_content(prompt)
     cleaned = clean_json(response.text)
@@ -178,9 +198,10 @@ def extract_jd_data_with_llm(text):
     print("Extracting JD data with Gemini...")
 
     prompt = f"""
-Return ONLY valid JSON.
-
-NO text outside JSON.
+    You are an expert recruitment data analyst. Analyze the following job description and extract key skills, 
+    technologies, and qualifications into a structured JSON object.
+    Return ONLY valid JSON.
+    NO text outside JSON.
 
 Structure:
 
@@ -195,6 +216,7 @@ Job Description:
 {text}
 """
 
+
     response = MODEL.generate_content(prompt)
     cleaned = clean_json(response.text)
     return safe_json_load(cleaned)
@@ -206,6 +228,7 @@ def analyze_match_with_llm(resume_data, jd_data):
     print("Running ATS match analysis...")
 
     prompt = f"""
+    You are an expert ATS and career coach. Analyze the provided resume and job description JSON.
 Return ONLY valid JSON.
 
 NO explanation.
