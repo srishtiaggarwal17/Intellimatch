@@ -1,6 +1,6 @@
 # IntelliMatch 🎯
 
-An AI-powered resume matching and rewriting system that analyzes resumes against job descriptions to provide compatibility scores and insights.
+An AI-powered resume matching website that analyzes resumes against job descriptions to provide compatibility scores and insights.
 
 ## 📋 Table of Contents
 
